@@ -41,13 +41,13 @@ The skill file (`skills/aej.md`) contains all instructions needed. You can adapt
 Add captions to a video file:
 
 ```
-/aejadd captions to D:/videos/tutorial.mp4
+/aej add captions to D:/videos/tutorial.mp4
 ```
 
 Add captions to all videos in a folder:
 
 ```
-/aejadd captions to all files in D:/videos/
+/aej add captions to all files in D:/videos/
 ```
 
 ### Options
@@ -63,9 +63,9 @@ Add captions to all videos in a folder:
 Examples:
 
 ```
-/aejadd captions to video.mp4 line by line, no emojis, sentence case
-/aejadd captions to video.mp4 style Neon 03, no render
-/aejcaption D:/videos/ all caps, every 5 emojis
+/aej add captions to video.mp4 line by line, no emojis, sentence case
+/aej add captions to video.mp4 style Neon 03, no render
+/aej caption D:/videos/ all caps, every 5 emojis
 ```
 
 ## How It Works
@@ -96,7 +96,7 @@ Examples:
 - If AE still exits, open AE manually first, then run the command
 
 **Captions applied with wrong style**
-- Specify the style name: `/aejadd captions to video.mp4 style Beast 01`
+- Specify the style name: `/aej add captions to video.mp4 style Beast 01`
 - The item must exist in your Auto Captions pack
 
 ## License
