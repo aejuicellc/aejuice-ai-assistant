@@ -50,6 +50,13 @@ The skill file (`skills/aej.md`) contains all instructions needed. You can adapt
 /aej add subtitles to all files in D:/videos/
 ```
 
+### AI Hook
+
+```
+/aej add hook to D:/videos/tutorial.mp4
+/aej add ending cta to D:/video.mp4 casual, voice Brian, 10 seconds
+```
+
 ### Options
 
 | Option | Values | Default |
@@ -81,6 +88,7 @@ Examples:
 
 - [x] Auto Captions (single file and batch)
 - [x] Auto Subtitles (single file and batch)
+- [x] AI Hook (intro hooks and ending CTAs with AI voiceover)
 - [ ] B-Roll (coming soon)
 - [ ] Clean Speech (coming soon)
 - [ ] Text Based Editing (coming soon)

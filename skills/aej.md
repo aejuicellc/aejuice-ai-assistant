@@ -19,6 +19,11 @@ Triggers: "subtitles", "subtitle", "subs"
 - Folder: `/aej add subtitles to all files in D:/videos/`
 - With settings: `/aej add subtitles to D:/video.mp4 sentence case, no render`
 
+### AI Hook
+Triggers: "hook", "cta", "intro hook", "ending"
+- `/aej add hook to D:/videos/tutorial.mp4`
+- `/aej add ending cta to D:/video.mp4 casual, voice Brian`
+
 ## Instructions
 
 ### 1. Parse User Intent
@@ -140,6 +145,34 @@ var settings = {
 // settings.segmentation = SegmentationMode.SMART_SPLIT;
 // settings.emojis = EmojisFrequency.NONE;
 // settings.capitalization = TextCase.SENTENCE_CASE;
+```
+
+**AI Hook settings:**
+
+**Position:**
+- "hook" / "intro" / "beginning" -> `HookSchema.position.BEGINNING` (default)
+- "cta" / "ending" / "outro" -> `HookSchema.position.ENDING`
+
+**Script style:**
+- "serious" (default), "casual", "informative", "conversational", "humorous", "inspirational", "dramatic", "persuasive", "excited", "calm"
+
+**Voice:**
+- Default "Ava". Available: Ava, Brian, Davis, Nancy, Evelyn, Phoebe, Samuel, Lewis, Cora, Adam, Amanda, Ryan, Ollie, Ada, William, Florian, Seraphina
+
+**Duration:**
+- Default 5 seconds. User can say "10 second hook"
+
+```jsx
+var settings = {
+  source: "File",
+  hookPosition: HookSchema.position.BEGINNING,
+  scriptStyle: "Serious",
+  speakerVoice: "Ava",
+  scriptDuration: 5,
+  originalVolume: 10,
+  confirmScript: false,
+  customInstructions: ""
+};
 ```
 
 ### 4. Task-Specific Code
@@ -408,6 +441,45 @@ if (skippedFiles.length > 0) {
 
 saveProject();
 logd("batch auto subtitles completed", files.length + " files");
+```
+
+#### AI Hook - Single File
+```jsx
+var filePath = "USER_FILE_PATH";
+var file = File(filePath);
+if (!file.exists) {
+  logdAndError("file not found: " + filePath);
+}
+
+var comp = CompObject.replicateAndAdd(file);
+comp.openInViewer();
+var layer = comp.layer(1);
+
+var settings = {
+  source: "File",
+  file: file,
+  hookPosition: HookSchema.position.BEGINNING,
+  scriptStyle: "Serious",
+  speakerVoice: "Ava",
+  scriptDuration: 5,
+  originalVolume: 10,
+  confirmScript: false,
+  customInstructions: ""
+  // ADD USER OVERRIDES HERE
+};
+
+Hook.prepare(settings);
+
+// RENDER BLOCK (include only if render is true)
+var outputFolder = Folder(file.parent.fsName + "/Export");
+logd("exporting to", outputFolder);
+var outputFiles = ExportMP4.prepare(comp, outputFolder);
+logd("exported mp4");
+reveal(getLastOrNull(outputFiles));
+// END RENDER BLOCK
+
+saveProject();
+logd("ai hook completed for", filePath);
 ```
 
 ### 5. Execute Script
