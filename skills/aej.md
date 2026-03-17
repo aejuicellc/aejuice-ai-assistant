@@ -183,9 +183,9 @@ AutoCaptions.prepare(layer, settings);
 // RENDER BLOCK (include only if render is true)
 var outputFolder = Folder(file.parent.fsName + "/Export");
 logd("exporting to", outputFolder);
-ExportMP4.prepare(comp, outputFolder);
+var outputFiles = ExportMP4.prepare(comp, outputFolder);
 logd("exported mp4");
-reveal(outputFolder);
+reveal(getLastOrNull(outputFiles));
 // END RENDER BLOCK
 
 saveProject();
@@ -264,9 +264,9 @@ for (var i = 0; i < files.length; i++) {
 if (processedComps.length > 0) {
   var outputFolder = Folder(folder.fsName + "/Export");
   logd("exporting all comps to mp4", processedComps.length);
-  ExportMP4.prepare(processedComps, outputFolder);
+  var outputFiles = ExportMP4.prepare(processedComps, outputFolder);
   logd("exported all mp4s");
-  reveal(outputFolder);
+  reveal(getLastOrNull(outputFiles));
 }
 // END RENDER BLOCK
 
@@ -316,9 +316,9 @@ AutoSubtitles.prepare(layer, settings);
 // RENDER BLOCK (include only if render is true)
 var outputFolder = Folder(file.parent.fsName + "/Export");
 logd("exporting to", outputFolder);
-ExportMP4.prepare(comp, outputFolder);
+var outputFiles = ExportMP4.prepare(comp, outputFolder);
 logd("exported mp4");
-reveal(outputFolder);
+reveal(getLastOrNull(outputFiles));
 // END RENDER BLOCK
 
 saveProject();
@@ -396,9 +396,9 @@ for (var i = 0; i < files.length; i++) {
 if (processedComps.length > 0) {
   var outputFolder = Folder(folder.fsName + "/Export");
   logd("exporting all comps to mp4", processedComps.length);
-  ExportMP4.prepare(processedComps, outputFolder);
+  var outputFiles = ExportMP4.prepare(processedComps, outputFolder);
   logd("exported all mp4s");
-  reveal(outputFolder);
+  reveal(getLastOrNull(outputFiles));
 }
 // END RENDER BLOCK
 
