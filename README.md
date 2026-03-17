@@ -38,16 +38,16 @@ The skill file (`skills/aej.md`) contains all instructions needed. You can adapt
 
 ### Auto Captions
 
-Add captions to a video file:
-
 ```
 /aej add captions to D:/videos/tutorial.mp4
-```
-
-Add captions to all videos in a folder:
-
-```
 /aej add captions to all files in D:/videos/
+```
+
+### Auto Subtitles
+
+```
+/aej add subtitles to D:/videos/tutorial.mp4
+/aej add subtitles to all files in D:/videos/
 ```
 
 ### Options
@@ -80,7 +80,7 @@ Examples:
 ## Supported Features
 
 - [x] Auto Captions (single file and batch)
-- [ ] Auto Subtitles (coming soon)
+- [x] Auto Subtitles (single file and batch)
 - [ ] B-Roll (coming soon)
 - [ ] Clean Speech (coming soon)
 - [ ] Text Based Editing (coming soon)
