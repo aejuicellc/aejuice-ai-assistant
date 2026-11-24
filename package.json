@@ -1,0 +1,20 @@
+{
+  "name": "aejuice-ai-assistant",
+  "version": "0.1.0",
+  "description": "Let Claude search, import and set up AEJuice Pack Manager in After Effects, Premiere Pro and Standalone",
+  "type": "module",
+  "bin": {
+    "aejuice-mcp": "server.js"
+  },
+  "main": "server.js",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.0",
+    "zod": "^3.23.8"
+  },
+  "scripts": {
+    "build": "esbuild server.js --bundle --platform=node --format=esm --target=node18 --outfile=dist/server.mjs \"--banner:js=import { createRequire } from 'module'; const require = createRequire(import.meta.url);\""
+  },
+  "devDependencies": {
+    "esbuild": "0.24.0"
+  }
+}

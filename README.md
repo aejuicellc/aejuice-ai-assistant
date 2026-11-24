@@ -12,6 +12,8 @@ After Effects, Premiere Pro or the AEJuice Pack Manager Standalone app:
 - "Add a glitch transition between my two clips"
 - "Find three neon lower thirds and import the one I like"
 - "Which AEJuice packs do I own?"
+- "Make the title say Summer Sale in white with a red box"
+- "Hide the trending row in Pack Manager"
 
 Needs AEJuice Pack Manager 4 (a release with Claude support) open and signed in, and Node.js 18 or newer.
 
@@ -37,8 +39,13 @@ Needs AEJuice Pack Manager 4 (a release with Claude support) open and signed in,
 
 3. Restart Claude Desktop
 
-Tools: `status`, `search_items`, `list_owned_packs`, `import_items` (asks before importing, only owned packs).
+Claude can search the library, list your packs, import items, download whole packs, edit the selected item
+(text, fonts, colors, sliders) and change Pack Manager settings. Imports only work for packs you own.
 Claude talks to Pack Manager on your computer only (127.0.0.1).
+
+## Building the plugin
+
+`server.js` is the source. `npm install` then `npm run build` writes the bundled `dist/server.mjs`.
 
 ## /aej command (After Effects automation)
 

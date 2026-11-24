@@ -21678,4 +21678,82 @@ server.registerTool("import_items", {
   await callPackManager(instance, "McpImport", [{ pack, animations: items }]);
   return asText("Import started in " + (hostNames[instance.host] || instance.host) + ": " + items.join(", ") + " from " + pack);
 });
+server.registerTool("import_status", {
+  title: "Import status",
+  description: "Whether an import started with import_items is still running",
+  inputSchema: { host: hostSchema },
+  annotations: { readOnlyHint: true }
+}, async function({ host }) {
+  const instance = await getInstance(host);
+  return asText(await callPackManager(instance, "McpImportStatus"));
+});
+server.registerTool("download_pack", {
+  title: "Download a whole pack",
+  description: "Download all files of an owned pack so every item imports instantly and works offline. Check progress with download_status",
+  inputSchema: {
+    pack: external_exports.string().describe("Pack name exactly as returned by search_items or list_owned_packs"),
+    host: hostSchema
+  },
+  annotations: { readOnlyHint: false, destructiveHint: false }
+}, async function({ pack, host }) {
+  const instance = await getInstance(host);
+  await callPackManager(instance, "McpDownloadPack", { pack });
+  return asText("Download started: " + pack + ". Use download_status to follow it.");
+});
+server.registerTool("download_status", {
+  title: "Download status",
+  description: "Progress of a pack download started with download_pack: state (downloading, done, failed, not started) and percent",
+  inputSchema: { pack: external_exports.string(), host: hostSchema },
+  annotations: { readOnlyHint: true }
+}, async function({ pack, host }) {
+  const instance = await getInstance(host);
+  return asText(await callPackManager(instance, "McpDownloadStatus", { pack }));
+});
+server.registerTool("get_settings", {
+  title: "Get Pack Manager settings",
+  description: "Current settings. packManager: interface and behavior options (Show* = which buttons and parts are visible, MinimalMode, BalancedMode, TabsLimit, EditAfterImport 0 Smart 1 Quick edit 2 Edit window 3 Nothing, ImportWithAudio, LoopFootage...; null = default). advanced: Advanced tab settings with name, type, allowed values and description",
+  inputSchema: { host: hostSchema },
+  annotations: { readOnlyHint: true }
+}, async function({ host }) {
+  const instance = await getInstance(host);
+  return asText(await callPackManager(instance, "McpGetSettings"));
+});
+server.registerTool("update_settings", {
+  title: "Change Pack Manager settings",
+  description: "Change settings returned by get_settings. Interface changes show after reopening Pack Manager",
+  inputSchema: {
+    packManager: external_exports.record(external_exports.union([external_exports.string(), external_exports.number(), external_exports.boolean(), external_exports.null()])).optional().describe('Keys from get_settings packManager with new values, e.g. {"ShowTrending": false, "TabsLimit": 5}'),
+    advanced: external_exports.array(external_exports.object({ settingName: external_exports.string(), value: external_exports.union([external_exports.string(), external_exports.number(), external_exports.boolean()]) })).optional().describe("Advanced settings by settingName from get_settings advanced"),
+    host: hostSchema
+  },
+  annotations: { readOnlyHint: false, destructiveHint: false }
+}, async function({ packManager, advanced, host }) {
+  const instance = await getInstance(host);
+  return asText(await callPackManager(instance, "McpSetSettings", { packManager: packManager || {}, advanced: advanced || [] }));
+});
+server.registerTool("get_item_controls", {
+  title: "Get controls of the selected item",
+  description: "Editable controls of the selected AEJuice item (select its layer in After Effects or its clip in Premiere Pro first; an item is selected right after import_items): texts, fonts, colors as [r,g,b] 0-1, sliders, checkboxes, dropdowns",
+  inputSchema: { host: hostSchema },
+  annotations: { readOnlyHint: true }
+}, async function({ host }) {
+  const instance = await getInstance(host);
+  return asText(await callPackManager(instance, "McpGetControls"));
+});
+server.registerTool("set_item_controls", {
+  title: "Edit the selected item",
+  description: "Change controls of the selected AEJuice item by control name from get_item_controls: text, font (font name as in get_item_controls), color [r,g,b], numbers, true/false",
+  inputSchema: {
+    changes: external_exports.array(external_exports.object({
+      name: external_exports.string(),
+      value: external_exports.any().optional(),
+      font: external_exports.string().optional()
+    })).min(1),
+    host: hostSchema
+  },
+  annotations: { readOnlyHint: false, destructiveHint: false }
+}, async function({ changes, host }) {
+  const instance = await getInstance(host);
+  return asText(await callPackManager(instance, "McpSetControls", { changes }));
+});
 await server.connect(new StdioServerTransport());
