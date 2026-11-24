@@ -1,6 +1,6 @@
 {
   "name": "aejuice-ai-assistant",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Let Claude search, import and set up AEJuice Pack Manager in After Effects, Premiere Pro and Standalone",
   "type": "module",
   "bin": {
