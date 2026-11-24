@@ -1,0 +1,15 @@
+{
+  "name": "aejuice",
+  "description": "AEJuice for Claude: find and import AEJuice templates and effects in After Effects, Premiere Pro and Standalone",
+  "owner": {
+    "name": "AEJuice",
+    "url": "https://aejuice.com"
+  },
+  "plugins": [
+    {
+      "name": "aejuice",
+      "source": "./",
+      "description": "Search the AEJuice library and import items into After Effects, Premiere Pro or the AEJuice Standalone app"
+    }
+  ]
+}

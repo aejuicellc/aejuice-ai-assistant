@@ -4,6 +4,44 @@ AI-powered automation for Adobe After Effects using [AEJuice Pack Manager](https
 
 Run After Effects tasks from the command line using natural language with Claude Code, Cursor, or any AI coding assistant.
 
+## Find and import with Claude (plugin)
+
+Ask Claude to find AEJuice templates, transitions, titles, effects and sound effects and import them into
+After Effects, Premiere Pro or the AEJuice Pack Manager Standalone app:
+
+- "Add a glitch transition between my two clips"
+- "Find three neon lower thirds and import the one I like"
+- "Which AEJuice packs do I own?"
+
+Needs AEJuice Pack Manager 4 (a release with Claude support) open and signed in, and Node.js 18 or newer.
+
+### Claude Code
+
+```
+/plugin marketplace add aejuicellc/aejuice-ai-assistant
+/plugin install aejuice@aejuice
+```
+
+### Claude Desktop
+
+1. Download this repository (Code > Download ZIP) and unzip it
+2. Claude Desktop > Settings > Developer > Edit Config, add (use the real path to `dist/server.mjs`):
+
+```json
+{
+  "mcpServers": {
+    "aejuice": { "command": "node", "args": ["C:/path/to/aejuice-ai-assistant/dist/server.mjs"] }
+  }
+}
+```
+
+3. Restart Claude Desktop
+
+Tools: `status`, `search_items`, `list_owned_packs`, `import_items` (asks before importing, only owned packs).
+Claude talks to Pack Manager on your computer only (127.0.0.1).
+
+## /aej command (After Effects automation)
+
 ## Requirements
 
 - Adobe After Effects (2022 or later)
